@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mafia Ultra AI</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:tahoma,sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+padding:15px;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#1d4ed8 0%,transparent 35%),
+radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+#020617;
+z-index:-1;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logo{
+font-size:42px;
+font-weight:bold;
+}
+
+.status{
+padding:12px 18px;
+border-radius:18px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.glass{
+background:rgba(255,255,255,0.07);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(16px);
+border-radius:28px;
+padding:22px;
+box-shadow:0 0 30px rgba(0,0,0,0.45);
+margin-bottom:22px;
+}
+
+.hero h1{
+font-size:34px;
+margin-bottom:14px;
+}
+
+.hero p{
+line-height:2;
+font-size:20px;
+opacity:.92;
+}
+
+.buttons{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:22px;
+}
+
+button{
+border:none;
+padding:15px 20px;
+border-radius:18px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+color:white;
+}
+
+.green{background:#16a34a;}
+.red{background:#dc2626;}
+.blue{background:#2563eb;}
+
+.card h2{
+margin-bottom:20px;
+font-size:32px;
+}
+
+.player{
+padding:18px;
+border-radius:18px;
+margin-bottom:14px;
+display:flex;
+justify-content:space-between;
+font-size:24px;
+font-weight:bold;
+}
+
+.safe{
+background:rgba(34,197,94,0.15);
+border:1px solid #22c55e;
+}
+
+.mid{
+background:rgba(234,179,8,0.15);
+border:1px solid #eab308;
+}
+
+.danger{
+background:rgba(239,68,68,0.15);
+border:1px solid #ef4444;
+}
+
+.text{
+line-height:2;
+font-size:22px;
+}
+
+/* graph */
+
+.graphWrap{
+position:relative;
+height:450px;
+overflow:hidden;
+}
+
+.node{
+position:absolute;
+width:110px;
+height:110px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:bold;
+box-shadow:0 0 25px rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+border:2px solid rgba(255,255,255,0.2);
+animation:float 4s ease-in-out infinite;
+}
+
+.node1{
+top:40px;
+right:20px;
+background:rgba(34,197,94,0.3);
+border-color:#22c55e;
+}
+
+.node2{
+top:180px;
+left:20px;
+background:rgba(234,179,8,0.3);
+border-color:#eab308;
+}
+
+.node3{
+bottom:20px;
+right:100px;
+background:rgba(239,68,68,0.3);
+border-color:#ef4444;
+}
+
+.line{
+position:absolute;
+background:linear-gradient(90deg,#60a5fa,#a855f7);
+height:4px;
+border-radius:10px;
+box-shadow:0 0 15px #60a5fa;
+transform-origin:left center;
+}
+
+.l1{
+width:250px;
+top:130px;
+right:110px;
+transform:rotate(145deg);
+}
+
+.l2{
+width:190px;
+top:280px;
+left:110px;
+transform:rotate(-15deg);
+}
+
+.l3{
+width:230px;
+top:220px;
+right:120px;
+transform:rotate(35deg);
+}
+
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0px);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+<div class="logo">🎭 MAFIA ULTRA AI</div>
+<div class="status" id="net">🔴 Offline</div>
+</div>
+
+<div class="glass hero">
+<h1>تحلیل هوشمند مافیا</h1>
+
+<p>
+تحلیل رفتار بازیکنان + دیالوگ محیطی + تحلیل شک + ضبط دو میکروفون
+</p>
+
+<div class="buttons">
+<button class="green" onclick="startMic()">🎤 شروع شنیدن</button>
+<button class="red" onclick="stopMic()">⛔ توقف</button>
+<button class="blue" onclick="makeDialog()">🧠 ساخت دیالوگ</button>
+</div>
+</div>
+
+<div class="glass card">
+<h2>بازیکنان</h2>
+
+<div class="player safe">
+<span>امیر</span>
+<span>20% شک</span>
+</div>
+
+<div class="player mid">
+<span>رضا</span>
+<span>56% شک</span>
+</div>
+
+<div class="player danger">
+<span>محمد</span>
+<span>89% شک</span>
+</div>
+
+</div>
+
+<div class="glass card">
+<h2>نقشه ارتباط و تارگت‌ها</h2>
+
+<div class="graphWrap">
+
+<div class="line l1"></div>
+<div class="line l2"></div>
+<div class="line l3"></div>
+
+<div class="node node1">امیر</div>
+<div class="node node2">رضا</div>
+<div class="node node3">محمد</div>
+
+</div>
+
+</div>
+
+<div class="glass card">
+<h2>تحلیل زنده</h2>
+
+<div id="analysis" class="text">
+سیستم آماده تحلیل رفتار و صدا است...
+</div>
+
+</div>
+
+<div class="glass card">
+<h2>دیالوگ پیشنهادی</h2>
+
+<div id="dialog" class="text">
+هنوز دیالوگی ساخته نشده
+</div>
+
+</div>
+
+<script>
+
+function updateNetwork(){
+const net=document.getElementById("net");
+
+if(navigator.onLine){
+net.innerHTML="🟢 Online";
+}else{
+net.innerHTML="🔴 Offline";
+}
+}
+
+window.addEventListener("online",updateNetwork);
+window.addEventListener("offline",updateNetwork);
+
+updateNetwork();
+
+async function startMic(){
+
+try{
+
+window.stream=await navigator.mediaDevices.getUserMedia({
+audio:true
+});
+
+document.getElementById("analysis").innerHTML=
+"🎤 ضبط صدا فعال شد<br><br>• تحلیل استرس صدا<br>• تشخیص تناقض<br>• تحلیل رفتار";
+
+}catch(e){
+
+document.getElementById("analysis").innerHTML=
+"❌ دسترسی میکروفون داده نشد";
+
+}
+
+}
+
+function stopMic(){
+
+if(window.stream){
+window.stream.getTracks().forEach(t=>t.stop());
+}
+
+document.getElementById("analysis").innerHTML=
+"⛔ ضبط صدا متوقف شد";
+
+}
+
+function makeDialog(){
+
+const list=[
+"رضا رأی‌های متناقض می‌دهد.",
+"محمد بیشترین احتمال مافیا را دارد.",
+"امیر رفتار آرام اما غیرطبیعی دارد.",
+"رضا هنگام دفاع استرس داشت."
+];
+
+const random=list[Math.floor(Math.random()*list.length)];
+
+document.getElementById("dialog").innerHTML=random;
+
+}
+</script>
+
+</body>
+</html>
