@@ -1,355 +1,142 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mafia Ultra AI</title>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:tahoma,sans-serif;
-}
-
-body{
-background:#050816;
-color:white;
-padding:15px;
-overflow-x:hidden;
-}
-
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top left,#1d4ed8 0%,transparent 35%),
-radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
-#020617;
-z-index:-1;
-}
-
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.logo{
-font-size:42px;
-font-weight:bold;
-}
-
-.status{
-padding:12px 18px;
-border-radius:18px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.1);
-}
-
-.glass{
-background:rgba(255,255,255,0.07);
-border:1px solid rgba(255,255,255,0.1);
-backdrop-filter:blur(16px);
-border-radius:28px;
-padding:22px;
-box-shadow:0 0 30px rgba(0,0,0,0.45);
-margin-bottom:22px;
-}
-
-.hero h1{
-font-size:34px;
-margin-bottom:14px;
-}
-
-.hero p{
-line-height:2;
-font-size:20px;
-opacity:.92;
-}
-
-.buttons{
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-margin-top:22px;
-}
-
-button{
-border:none;
-padding:15px 20px;
-border-radius:18px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-color:white;
-}
-
-.green{background:#16a34a;}
-.red{background:#dc2626;}
-.blue{background:#2563eb;}
-
-.card h2{
-margin-bottom:20px;
-font-size:32px;
-}
-
-.player{
-padding:18px;
-border-radius:18px;
-margin-bottom:14px;
-display:flex;
-justify-content:space-between;
-font-size:24px;
-font-weight:bold;
-}
-
-.safe{
-background:rgba(34,197,94,0.15);
-border:1px solid #22c55e;
-}
-
-.mid{
-background:rgba(234,179,8,0.15);
-border:1px solid #eab308;
-}
-
-.danger{
-background:rgba(239,68,68,0.15);
-border:1px solid #ef4444;
-}
-
-.text{
-line-height:2;
-font-size:22px;
-}
-
-/* graph */
-
-.graphWrap{
-position:relative;
-height:450px;
-overflow:hidden;
-}
-
-.node{
-position:absolute;
-width:110px;
-height:110px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-font-weight:bold;
-box-shadow:0 0 25px rgba(255,255,255,0.15);
-backdrop-filter:blur(10px);
-border:2px solid rgba(255,255,255,0.2);
-animation:float 4s ease-in-out infinite;
-}
-
-.node1{
-top:40px;
-right:20px;
-background:rgba(34,197,94,0.3);
-border-color:#22c55e;
-}
-
-.node2{
-top:180px;
-left:20px;
-background:rgba(234,179,8,0.3);
-border-color:#eab308;
-}
-
-.node3{
-bottom:20px;
-right:100px;
-background:rgba(239,68,68,0.3);
-border-color:#ef4444;
-}
-
-.line{
-position:absolute;
-background:linear-gradient(90deg,#60a5fa,#a855f7);
-height:4px;
-border-radius:10px;
-box-shadow:0 0 15px #60a5fa;
-transform-origin:left center;
-}
-
-.l1{
-width:250px;
-top:130px;
-right:110px;
-transform:rotate(145deg);
-}
-
-.l2{
-width:190px;
-top:280px;
-left:110px;
-transform:rotate(-15deg);
-}
-
-.l3{
-width:230px;
-top:220px;
-right:120px;
-transform:rotate(35deg);
-}
-
-@keyframes float{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-10px);}
-100%{transform:translateY(0px);}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050816" />
+  <title>Mafia Ultra AI</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="bg-glow"></div>
 
-<div class="top">
-<div class="logo">🎭 MAFIA ULTRA AI</div>
-<div class="status" id="net">🔴 Offline</div>
-</div>
+  <header class="topbar glass">
+    <div class="brand">
+      <div class="brand-title">Mafia Ultra AI</div>
+      <div class="brand-sub">تحلیل حرفه‌ای مافیا • تارگت وزنی • دیالوگ هوشمند</div>
+    </div>
+    <div class="status-pill" id="netStatus">🔴 Offline</div>
+  </header>
 
-<div class="glass hero">
-<h1>تحلیل هوشمند مافیا</h1>
+  <main class="layout">
+    <section class="hero glass">
+      <div class="hero-text">
+        <h1>سیستم تحلیل حرفه‌ای مافیا</h1>
+        <p>افزودن بازیکن، تعیین نقش، شب و روز، ذخیره خودکار، نمودار تارگت وزنی، و دیالوگ‌های یک‌دقیقه‌ای مافیابازها.</p>
+      </div>
 
-<p>
-تحلیل رفتار بازیکنان + دیالوگ محیطی + تحلیل شک + ضبط دو میکروفون
-</p>
+      <div class="hero-actions">
+        <button class="btn btn-green" id="btnStartSpeech">🎤 شروع شنیدن</button>
+        <button class="btn btn-red" id="btnStopSpeech">⛔ توقف</button>
+        <button class="btn btn-purple" id="btnGenerateDialogue">🧠 دیالوگ</button>
+        <button class="btn btn-ghost" id="btnExport">⬇️ خروجی JSON</button>
+      </div>
+    </section>
 
-<div class="buttons">
-<button class="green" onclick="startMic()">🎤 شروع شنیدن</button>
-<button class="red" onclick="stopMic()">⛔ توقف</button>
-<button class="blue" onclick="makeDialog()">🧠 ساخت دیالوگ</button>
-</div>
-</div>
+    <section class="grid">
+      <div class="glass panel">
+        <div class="panel-head">
+          <h2>مدیریت بازیکنان</h2>
+          <span class="chip">۱۲ بازیکن</span>
+        </div>
 
-<div class="glass card">
-<h2>بازیکنان</h2>
+        <div class="form-grid">
+          <input id="playerName" class="field" placeholder="اسم بازیکن" />
+          <select id="playerRole" class="field">
+            <option>شهروند</option>
+            <option>مافیا</option>
+            <option>گادفادر</option>
+            <option>دکتر</option>
+            <option>کارآگاه</option>
+            <option>بازپرس</option>
+            <option>مستقل</option>
+          </select>
+          <select id="gamePhase" class="field">
+            <option value="day">روز</option>
+            <option value="night">شب</option>
+          </select>
+          <button class="btn btn-blue" id="btnAddPlayer">➕ افزودن بازیکن</button>
+        </div>
 
-<div class="player safe">
-<span>امیر</span>
-<span>20% شک</span>
-</div>
+        <div id="playersList" class="players-list"></div>
+      </div>
 
-<div class="player mid">
-<span>رضا</span>
-<span>56% شک</span>
-</div>
+      <div class="glass panel">
+        <div class="panel-head">
+          <h2>نمودار تارگت</h2>
+          <span class="chip">وزنی • رنگی • Drag</span>
+        </div>
 
-<div class="player danger">
-<span>محمد</span>
-<span>89% شک</span>
-</div>
+        <div class="graph-toolbar">
+          <select id="fromPlayer" class="field small-select"></select>
+          <select id="toPlayer" class="field small-select"></select>
+          <select id="edgeType" class="field small-select">
+            <option value="attack">حمله</option>
+            <option value="support">حمایت</option>
+            <option value="suspect">شک</option>
+            <option value="vote">رأی</option>
+          </select>
+          <button class="btn btn-green" id="btnConnect">اتصال</button>
+          <button class="btn btn-ghost" id="btnClearEdges">پاک‌کردن خط‌ها</button>
+        </div>
 
-</div>
+        <div class="graph-box">
+          <svg id="graph" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet" aria-label="Target graph"></svg>
+        </div>
 
-<div class="glass card">
-<h2>نقشه ارتباط و تارگت‌ها</h2>
+        <div class="legend">
+          <span><i class="dot attack"></i> حمله</span>
+          <span><i class="dot support"></i> حمایت</span>
+          <span><i class="dot suspect"></i> شک</span>
+          <span><i class="dot vote"></i> رأی</span>
+        </div>
+      </div>
 
-<div class="graphWrap">
+      <div class="glass panel">
+        <div class="panel-head">
+          <h2>تحلیل زنده</h2>
+          <span class="chip">Offline / Online</span>
+        </div>
+        <div id="analysisBox" class="text-box">سیستم آماده تحلیل است...</div>
+        <div class="mini-grid">
+          <div class="mini-card">
+            <div class="mini-label">بالاترین مظنون</div>
+            <div class="mini-value" id="topSuspect">—</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">تعداد بازیکن‌ها</div>
+            <div class="mini-value" id="playersCount">0</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">تعداد تارگت‌ها</div>
+            <div class="mini-value" id="edgesCount">0</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">تناقض‌ها</div>
+            <div class="mini-value" id="contradictionsCount">0</div>
+          </div>
+        </div>
 
-<div class="line l1"></div>
-<div class="line l2"></div>
-<div class="line l3"></div>
+        <div class="danger-box">
+          <div class="danger-title">تناقض‌ها</div>
+          <div id="contradictionsBox" class="list-box">هنوز تناقضی ثبت نشده است.</div>
+        </div>
+      </div>
 
-<div class="node node1">امیر</div>
-<div class="node node2">رضا</div>
-<div class="node node3">محمد</div>
+      <div class="glass panel">
+        <div class="panel-head">
+          <h2>متن گفتار / دیالوگ</h2>
+          <span class="chip">۱ دقیقه‌ای</span>
+        </div>
+        <div id="speechBox" class="text-box">هنوز چیزی ثبت نشده</div>
+        <div id="dialogueBox" class="text-box dialogue">هنوز دیالوگی ساخته نشده</div>
+      </div>
+    </section>
+  </main>
 
-</div>
+  <div class="toast" id="toast"></div>
 
-</div>
-
-<div class="glass card">
-<h2>تحلیل زنده</h2>
-
-<div id="analysis" class="text">
-سیستم آماده تحلیل رفتار و صدا است...
-</div>
-
-</div>
-
-<div class="glass card">
-<h2>دیالوگ پیشنهادی</h2>
-
-<div id="dialog" class="text">
-هنوز دیالوگی ساخته نشده
-</div>
-
-</div>
-
-<script>
-
-function updateNetwork(){
-const net=document.getElementById("net");
-
-if(navigator.onLine){
-net.innerHTML="🟢 Online";
-}else{
-net.innerHTML="🔴 Offline";
-}
-}
-
-window.addEventListener("online",updateNetwork);
-window.addEventListener("offline",updateNetwork);
-
-updateNetwork();
-
-async function startMic(){
-
-try{
-
-window.stream=await navigator.mediaDevices.getUserMedia({
-audio:true
-});
-
-document.getElementById("analysis").innerHTML=
-"🎤 ضبط صدا فعال شد<br><br>• تحلیل استرس صدا<br>• تشخیص تناقض<br>• تحلیل رفتار";
-
-}catch(e){
-
-document.getElementById("analysis").innerHTML=
-"❌ دسترسی میکروفون داده نشد";
-
-}
-
-}
-
-function stopMic(){
-
-if(window.stream){
-window.stream.getTracks().forEach(t=>t.stop());
-}
-
-document.getElementById("analysis").innerHTML=
-"⛔ ضبط صدا متوقف شد";
-
-}
-
-function makeDialog(){
-
-const list=[
-"رضا رأی‌های متناقض می‌دهد.",
-"محمد بیشترین احتمال مافیا را دارد.",
-"امیر رفتار آرام اما غیرطبیعی دارد.",
-"رضا هنگام دفاع استرس داشت."
-];
-
-const random=list[Math.floor(Math.random()*list.length)];
-
-document.getElementById("dialog").innerHTML=random;
-
-}
-</script>
-
+  <script src="app.js"></script>
 </body>
 </html>

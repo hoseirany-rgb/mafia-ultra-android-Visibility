@@ -1,13 +1,3 @@
 # Mafia Ultra AI
 
-ویژگی‌ها:
-- UI مشکی نئونی
-- تحلیل بازیکنان
-- وزن شک رنگی
-- حالت آنلاین و آفلاین
-- دیالوگ محیطی
-- ضبط صدا
-- آماده توسعه برای GitHub + Cloudflare
-
-## اجرا
-فایل index.html را باز کنید.
+Neon dark PWA with weighted target graph, offline storage, dialogue engine, and player manager.

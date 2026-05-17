@@ -1,8 +1,9 @@
 {
-  "name": "MafiaPedi2 Hybrid",
-  "short_name": "MafiaPedi2",
-  "display": "standalone",
+  "name": "Mafia Ultra AI",
+  "short_name": "MafiaAI",
   "start_url": "./index.html",
-  "background_color": "#0f0f0f",
-  "theme_color": "#000000"
+  "display": "standalone",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "icons": []
 }
